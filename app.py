@@ -43,27 +43,44 @@ def get_logs():
     <html>
       <head>
         <title>Trading Logs</title>
-        <meta http-equiv="refresh" content="15"> <!-- auto-refresh every 15s -->
         <style>
           body { font-family: monospace; background: #111; color: #eee; padding: 20px; }
           .order { color: #0f0; }
           .candidate_trade { color: #0af; }
           .message { color: #ffa; }
-        "pre { white-space: pre-wrap; word-wrap: break-word;}"
+          pre { white-space: pre-wrap; word-wrap: break-word; margin:0; }
         </style>
       </head>
       <body>
         <h2>Trading Logs (last 100)</h2>
-        <pre>
-    """
-    html_content += f"<span class='candidate_trade'>_____________________</span>\n"
-    for line in reversed(logs[-100:]):
-        if "[order]" in line:
-            html_content += f"<span class='order'>{line}</span>\n"
-        elif "[candidate_trade]" in line:
-            html_content += f"<span class='candidate_trade'>{line}</span>\n"
-        else:
-            html_content += f"<span class='message'>{line}</span>\n"
+        <pre id="logContainer"><span class='candidate_trade'>_____________________</span>
+        </pre>
 
-    html_content += "</pre></body></html>"
+        <script>
+          async function fetchLogs() {
+            try {
+              const res = await fetch("/logs-json");
+              const logs = await res.json();
+              const container = document.getElementById("logContainer");
+              container.innerHTML = "<span class='candidate_trade'>_____________________</span>\\n" + logs.map(line => {
+                if (line.includes("[order]")) return "<span class='order'>" + line + "</span>";
+                if (line.includes("[candidate_trade]")) return "<span class='candidate_trade'>" + line + "</span>";
+                return "<span class='message'>" + line + "</span>";
+              }).join("\\n");
+            } catch(e) {
+              console.error(e);
+            }
+          }
+
+          fetchLogs();
+          setInterval(fetchLogs, 15000); // update every 15 seconds
+        </script>
+      </body>
+    </html>
+    """
     return HTMLResponse(content=html_content)
+
+@app.get("/logs-json")
+def logs_json():
+    # last 100 logs, newest first
+    return logs[-100:][::-1]
