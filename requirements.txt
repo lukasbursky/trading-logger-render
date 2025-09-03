@@ -3,5 +3,4 @@ uvicorn
 requests
 pydantic
 typing
-pandas
 numpy
