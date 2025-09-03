@@ -55,7 +55,7 @@ def get_logs():
       <body>
         <h2>Trading Logs (last 100)</h2><pre>
     """
-
+    html_content += "\n"
     for line in reversed(logs[-100:]):
         if "[order]" in line:
             html_content += f"<span class='order'>{line}</span>\n"
