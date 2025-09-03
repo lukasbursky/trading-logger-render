@@ -57,7 +57,7 @@ def get_logs():
         <pre>
     """
 
-    for line in logs[-100:]:
+    for line in reversed(logs[-100:]):
         if "[order]" in line:
             html_content += f"<span class='order'>{line}</span>\n"
         elif "[candidate_trade]" in line:
