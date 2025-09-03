@@ -43,7 +43,7 @@ def get_logs():
     <html>
       <head>
         <title>Trading Logs</title>
-        <meta http-equiv="refresh" content="5"> <!-- auto-refresh every 5s -->
+        <meta http-equiv="refresh" content="15"> <!-- auto-refresh every 15s -->
         <style>
           body { font-family: monospace; background: #111; color: #eee; padding: 20px; }
           .order { color: #0f0; }
