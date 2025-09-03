@@ -18,10 +18,10 @@ def log_message(log: LogMessage):
     print(entry)  # still visible in Render dashboard
     return {"status": "ok"}
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def get_logs():
     # Show last 100 logs as simple HTML
-    html = "<h2>Trading Logs</h2><pre>"
-    html += "\n".join(logs[-100:])  # tail of logs
-    html += "</pre>"
-    return html
+    html_content = "<h2>Trading Logs</h2><pre style='white-space: pre-wrap;'>"
+    html_content += "\n".join(logs[-100:])  # tail of logs
+    html_content += "</pre>"
+    return HTMLResponse(content=html_content)
