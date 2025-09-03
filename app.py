@@ -53,8 +53,7 @@ def get_logs():
         </style>
       </head>
       <body>
-        <h2>Trading Logs (last 100)</h2>
-        <pre>
+        <h2>Trading Logs (last 100)</h2><pre>
     """
 
     for line in reversed(logs[-100:]):
@@ -66,4 +65,4 @@ def get_logs():
             html_content += f"<span class='message'>{line}</span>\n"
 
     html_content += "</pre></body></html>"
-    return HTMLResponse(content=html_content.strip())
+    return HTMLResponse(content=html_content)
