@@ -49,7 +49,7 @@ def get_logs():
           .order { color: #0f0; }
           .candidate_trade { color: #0af; }
           .message { color: #ffa; }
-        "pre { white-space: pre-wrap; word-wrap: break-word; margin:0; }"
+        "pre { white-space: pre-wrap; word-wrap: break-word;}"
         </style>
       </head>
       <body>
