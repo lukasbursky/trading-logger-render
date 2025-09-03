@@ -66,4 +66,4 @@ def get_logs():
             html_content += f"<span class='message'>{line}</span>\n"
 
     html_content += "</pre></body></html>"
-    return HTMLResponse(content=html_content)
+    return HTMLResponse(content=html_content.strip())
