@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from typing import Any, List
-import pandas as pd
 import numpy as np
 
 app = FastAPI()
@@ -19,8 +18,6 @@ class LogMessage(BaseModel):
 def prepare_message(obj: Any) -> str:
     if isinstance(obj, str):
         return obj
-    if hasattr(obj, "to_string"):  # pandas DataFrame / Series
-        return obj.to_string()
     if hasattr(obj, "tolist"):      # numpy array
         return str(obj.tolist())
     if isinstance(obj, (list, tuple)):
