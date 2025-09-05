@@ -49,6 +49,7 @@ def get_logs():
           .candidate_trade { color: #0af; }
           .message { color: #ffa; }
           .invis { color: #111; } 
+          .loop { color: #fff }
           pre { white-space: pre-wrap; word-wrap: break-word; margin:0; }
         </style>
       </head>
@@ -64,8 +65,9 @@ def get_logs():
               const logs = await res.json();
               const container = document.getElementById("logContainer");
               container.innerHTML = "<span class='invis'>--------------------</span>\\n" + logs.map(line => {
-                if (line.includes("[order]")) return "<span class='order'>" + line + "</span>";
-                if (line.includes("[candidate_trade]")) return "<span class='candidate_trade'>" + line + "</span>";
+                if (line.includes("order")) return "<span class='order'>" + line + "</span>";
+                if (line.includes("candidate_trade")) return "<span class='candidate_trade'>" + line + "</span>";
+                if (line.includes("loop")) return "<span class='loop'>" + line + "</span>";
                 return "<span class='message'>" + line + "</span>";
               }).join("\\n");
             } catch(e) {
